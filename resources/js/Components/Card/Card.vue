@@ -8,8 +8,8 @@ defineProps(['id', 'title', 'content', 'image_path', 'category', 'writer']);
 <template>
   <Link :href="route('articles.show', { article: id })"
     class="hover:scale-95 transition-all flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl h-64">
-  <Image :image_path="image_path"
-    class="object-cover h-full w-1/2 rounded-t-lg md:w-48 md:rounded-none md:rounded-s-lg" />
+  <Image :image_path="image_path" class="object-cover h-full rounded-t-lg md:rounded-none md:rounded-s-lg"
+    style="min-width: 40%;" />
   <div class="flex flex-col p-4 leading-normal relative h-full">
     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white overflow-hidden truncate w-48">
       {{ title }}</h5>
