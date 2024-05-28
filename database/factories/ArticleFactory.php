@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +18,15 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $category = Category::inRandomOrder()->first();
+
         // $image = $this->faker->image('public/storage/images', 640, 480, null, false, true);
         return [
             'title' => $this->faker->sentence,
             'content' => $this->faker->words(500, true),
-            'user_id' => \App\Models\User::inRandomOrder()->first()->id,
-            'category_id' => \App\Models\Category::inRandomOrder()->first()->id,
+            'user_id' => $user ? $user->id : User::factory()->create()->id,
+            'category_id' => $category ? $category->id : Category::factory()->create()->id,
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];

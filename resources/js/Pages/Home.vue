@@ -13,7 +13,6 @@ const props = defineProps({
 const last = ref(null);
 
 const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
-    console.log(isIntersecting);
     if (!isIntersecting) {
         return;
     }
@@ -24,30 +23,26 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
             if (!response.data.meta.next_cursor) {
                 stop();
             }
-    });
+        });
 });
 
 </script>
 
 <template>
-        <Head title="Home" />
-        <DefaultLayout>
-            <header>
-                <PageTitle title="Tous les articles" />
-            </header>
 
-            <main class="grid gap-12  grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                <Card
-                    v-for="article in articles.data"
-                    :key="article.id"
-                    :id="article.id"
-                    :title="article.title"
-                    :content="article.content"
-                    :image_path="article.image_path"
-                />
+    <Head title="Accueil" />
+    <DefaultLayout>
+        <header>
+            <PageTitle title="Tous les articles" />
+        </header>
 
-                <!-- -translate-y-64 is triggered before the end of articles on the viewport to smoothly call new entries -->
-                <div ref="last" class="-translate-y-64"></div>
-            </main>
+        <main class="grid gap-12  grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <Card v-for="article in articles.data" :key="article.id" :id="article.id" :title="article.title"
+                :content="article.content" :image_path="article.image_path" :category="article.category.name"
+                :writer="article.user.name" />
+
+            <!-- -translate-y-64 is triggered before the end of articles on the viewport to smoothly call new entries -->
+            <div ref="last" class="-translate-y-64"></div>
+        </main>
     </DefaultLayout>
 </template>

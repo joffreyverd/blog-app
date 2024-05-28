@@ -14,7 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/write-article', [ArticleController::class, 'create'])->name('articles.create');
     Route::post('/write-article', [ArticleController::class, 'store'])->name('articles.store');
-    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update'); // POST instead of PUT because cannot send form data with PUT method 😞
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 });
 

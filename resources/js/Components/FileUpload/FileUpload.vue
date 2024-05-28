@@ -31,7 +31,7 @@ watch(() => props.modelValue, (newFile) => {
   <div>
     <input type="file" @change="onFileChange" />
     <div v-if="imageUrl" class="mt-4">
-      <img :src="imageUrl" alt="Image preview" class="max-w-80 rounded-md" />
+      <img :src="imageUrl" alt="Image preview" class="max-w-40 rounded-md" />
     </div>
   </div>
 </template>

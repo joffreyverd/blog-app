@@ -10,9 +10,6 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { Send } from 'lucide-vue-next';
 
 const props = defineProps({
-    status: {
-        type: String,
-    },
     categories: {
         type: Array,
     },
@@ -21,14 +18,6 @@ const props = defineProps({
         default: null,
     },
 });
-
-// const form = useForm({
-//     title: '',
-//     content: '',
-//     category_id: '',
-//     image: null,
-//     ...props.article,
-// });
 
 const form = useForm({
     title: props.article?.title || '',
@@ -40,8 +29,7 @@ const form = useForm({
 
 const submit = () => {
     if (props.article) {
-        console.log(form);
-        form.put(route('articles.update', { article: props.article.id }), {
+        form.post(route('articles.update', { article: props.article.id }), {
             onSuccess: () => form.reset('content', 'title', 'category_id', 'image_path', 'image'),
         });
         return;
@@ -54,59 +42,45 @@ const submit = () => {
 
 <template>
     <DefaultLayout>
+
         <Head :title="article ? 'Editer un article' : 'Ecrire un article'" />
 
         <header>
             <PageTitle :title="article ? 'Editer un article' : 'Ecrire un article'" />
         </header>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="title" value="Title" />
-                <TextInput
-                    id="title"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.title"
-                    required
-                    autofocus
-                />
+                <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus />
                 <InputError class="mt-2" :message="form.errors.title" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="content" value="Contenu" />
-                <textarea
-                    id="content"
-                    type="text"
-                    class="mt-1 block w-full min-h-60"
-                    v-model="form.content"
-                    required
-                />
+                <textarea id="content" type="text" class="mt-1 block w-full min-h-60" v-model="form.content" required />
                 <InputError class="mt-2" :message="form.errors.content" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="category_id" value="Catégorie" />
-                <select class="input-frame" v-if="categories" v-model="form.category_id" name="category_id" id="category_id" required>
-                    <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                <select class="input-frame" v-if="categories" v-model="form.category_id" name="category_id"
+                    id="category_id" required>
+                    <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}
+                    </option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.category_id" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="image" value="Image" />
-                <FileUpload v-model="form.image" />
+                <FileUpload v-model="form.image" name="image" id="image" />
                 <InputError class="mt-2" :message="form.errors.image" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    <Send class="w-4 mr-2"/>
+                    <Send class="w-4 mr-2" />
                     {{ article ? 'Editer' : 'Publier' }}
                 </PrimaryButton>
             </div>

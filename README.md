@@ -16,11 +16,12 @@ A modern monolitic blog app built with Laravel 11 and Vue.js 3.
 - Upload photo on articles
 - Link articles to a category
 - Pagination & infinite scrolling using Inertia & Vue Observer API
+- Faker seeds with random unspash image
 
 ## Run app
 ```sh
 # clone the project and get the right env variables
-git clone ...
+git clone https://github.com/joffreyverd/blog-app.git
 cd blog-app
 cp .env.example .env
 
@@ -40,8 +41,10 @@ php artisan migrate
 # seed the database
 php artisan db:seed
 
-# run server
+# run in a term instance
 php artisan serve
+# run in another term instance
+npm run dev
 ```
 
 ## Dev cheatsheet
@@ -53,8 +56,7 @@ laravel new blog-app
 php artisan make:model Category -m
 php artisan make:model Article -m
 
-# create controllers
-php artisan make:controller Api/CategoryController --api --resource --model=Category
+# create controller
 php artisan make:controller Api/ArticleController --api --resource --model=Article
 
 # create request
@@ -64,6 +66,9 @@ php artisan make:resource ArticleResource
 
 # create seeder
 php artisan make:seeder CategoryTableSeeder
+
+# create service
+php artisan make:class Services/ArticleService
 
 # lint with Pint
 ./vendor/bin/pint
