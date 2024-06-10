@@ -83,7 +83,7 @@ class ArticleController extends Controller
     {
         try {
             $article->delete();
-            (new ImageService)->delete($article->image_path);
+            $this->imageService->delete($article->image_path);
         } catch (\Exception $e) {
             return Redirect::back()->with('error', 'Failed to delete article');
         }
