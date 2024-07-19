@@ -15,14 +15,10 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    private $articleService;
-
-    private $imageService;
-
-    public function __construct(ArticleService $articleService, ImageService $imageService)
+    public function __construct(
+        private ArticleService $articleService,
+        private ImageService $imageService)
     {
-        $this->articleService = $articleService;
-        $this->imageService = $imageService;
     }
 
     public function index(Request $request)

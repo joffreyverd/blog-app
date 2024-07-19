@@ -29,18 +29,15 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
 </script>
 
 <template>
-
     <Head title="Accueil" />
     <DefaultLayout>
         <header>
             <PageTitle title="Tous les articles" />
         </header>
-
         <main class="grid gap-12  grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <Card v-for="article in articles.data" :key="article.id" :id="article.id" :title="article.title"
                 :content="article.content" :image_path="article.image_path" :category="article.category.name"
                 :writer="article.user.name" />
-
             <!-- -translate-y-64 is triggered before the end of articles on the viewport to smoothly call new entries -->
             <div ref="last" class="-translate-y-64"></div>
         </main>

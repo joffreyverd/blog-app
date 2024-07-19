@@ -45,6 +45,9 @@ php artisan db:seed
 php artisan serve
 # run in another term instance
 npm run dev
+
+# access to the application
+http://127.0.0.1:8000
 ```
 
 ## Dev cheatsheet
